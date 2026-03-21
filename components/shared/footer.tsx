@@ -54,10 +54,10 @@ export function Footer() {
           <p className="text-center text-sm text-muted-foreground">
             Questions? Email us at{' '}
             <a
-              href="mailto:hello@easystorage.com"
+              href="mailto:info@easystoragenys.com"
               className="underline underline-offset-2 hover:text-foreground"
             >
-              hello@easystorage.com
+              info@easystoragenys.com
             </a>
           </p>
         </div>
