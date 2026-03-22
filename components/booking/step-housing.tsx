@@ -37,7 +37,7 @@ export function StepHousing({ onNext }: StepHousingProps) {
     housingType === 'dorm'
       ? !!dormName && hasRoomNumber && hasValidFloor
       : housingType === 'on-campus-apartment'
-      ? !!apartmentName && hasRoomNumber
+      ? !!apartmentName && hasRoomNumber && hasValidFloor
       : !!address;
 
   return (
