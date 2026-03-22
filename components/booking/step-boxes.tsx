@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Minus, Plus, PackageOpen, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -30,8 +31,16 @@ function formatDate(dateStr: string): string {
 
 export function StepBoxes({ onNext, onBack }: StepBoxesProps) {
   const { watch, setValue } = useFormContext<BookingFormData>();
+  const boxCount = watch('boxCount');
   const cardboardBoxesRequested = watch('cardboardBoxesRequested');
   const boxDeliveryDate = watch('boxDeliveryDate');
+  const maxFreeBoxes = Math.max(0, boxCount);
+
+  useEffect(() => {
+    if (cardboardBoxesRequested > maxFreeBoxes) {
+      setValue('cardboardBoxesRequested', maxFreeBoxes);
+    }
+  }, [cardboardBoxesRequested, maxFreeBoxes, setValue]);
 
   const needsBoxes = cardboardBoxesRequested > 0;
   const canProceed = !needsBoxes || (needsBoxes && !!boxDeliveryDate);
@@ -58,6 +67,9 @@ export function StepBoxes({ onNext, onBack }: StepBoxesProps) {
               </Label>
               <p className="text-sm text-muted-foreground">
                 Standard moving boxes (26" x 16" x 15")
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Max free boxes: {maxFreeBoxes}
               </p>
             </div>
           </div>
@@ -86,8 +98,12 @@ export function StepBoxes({ onNext, onBack }: StepBoxesProps) {
               size="icon"
               className="h-10 w-10"
               onClick={() =>
-                setValue('cardboardBoxesRequested', cardboardBoxesRequested + 1)
+                setValue(
+                  'cardboardBoxesRequested',
+                  Math.min(maxFreeBoxes, cardboardBoxesRequested + 1)
+                )
               }
+              disabled={cardboardBoxesRequested >= maxFreeBoxes}
             >
               <Plus className="h-4 w-4" />
             </Button>
