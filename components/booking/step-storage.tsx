@@ -56,6 +56,12 @@ export function StepStorage({ onNext, onBack }: StepStorageProps) {
     return furnitureItems.find((item) => item.type === type)?.quantity || 0;
   };
 
+  const selectFurnitureOption = (type: string, price: number) => {
+    if (getFurnitureQuantity(type) === 0) {
+      updateFurnitureQuantity(type, price, 1);
+    }
+  };
+
   const displayItems = [];
   if (boxCount > 0) {
     displayItems.push(`${boxCount} ${boxCount === 1 ? 'Box' : 'Boxes'}`);
@@ -64,7 +70,8 @@ export function StepStorage({ onNext, onBack }: StepStorageProps) {
     displayItems.push(`${item.quantity} ${item.type}`);
   });
 
-  const canProceed = totalBoxes > 0;
+  const hasFurnitureSelection = furnitureItems.some((item) => item.quantity > 0);
+  const canProceed = boxCount > 0 || hasFurnitureSelection;
 
   return (
     <div className="space-y-8">
@@ -136,7 +143,8 @@ export function StepStorage({ onNext, onBack }: StepStorageProps) {
             return (
               <div
                 key={furniture.type}
-                className="flex items-center justify-between rounded-xl border border-border bg-card p-4"
+                className="flex cursor-pointer items-center justify-between rounded-xl border border-border bg-card p-4"
+                onClick={() => selectFurnitureOption(furniture.type, furniture.price)}
               >
                 <div>
                   <p className="font-medium text-foreground">{furniture.type}</p>
@@ -150,9 +158,10 @@ export function StepStorage({ onNext, onBack }: StepStorageProps) {
                     variant="outline"
                     size="icon"
                     className="h-8 w-8"
-                    onClick={() =>
-                      updateFurnitureQuantity(furniture.type, furniture.price, -1)
-                    }
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      updateFurnitureQuantity(furniture.type, furniture.price, -1);
+                    }}
                     disabled={quantity <= 0}
                   >
                     <Minus className="h-3 w-3" />
@@ -165,9 +174,10 @@ export function StepStorage({ onNext, onBack }: StepStorageProps) {
                     variant="outline"
                     size="icon"
                     className="h-8 w-8"
-                    onClick={() =>
-                      updateFurnitureQuantity(furniture.type, furniture.price, 1)
-                    }
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      updateFurnitureQuantity(furniture.type, furniture.price, 1);
+                    }}
                   >
                     <Plus className="h-3 w-3" />
                   </Button>
