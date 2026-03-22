@@ -27,12 +27,17 @@ export function StepHousing({ onNext }: StepHousingProps) {
   const dormName = watch('dormName');
   const apartmentName = watch('apartmentName');
   const address = watch('address');
+  const roomNumber = watch('roomNumber');
+  const floor = watch('floor');
+
+  const hasRoomNumber = !!roomNumber?.trim();
+  const hasValidFloor = floor > 0;
 
   const canProceed =
     housingType === 'dorm'
-      ? !!dormName
+      ? !!dormName && hasRoomNumber && hasValidFloor
       : housingType === 'on-campus-apartment'
-      ? !!apartmentName
+      ? !!apartmentName && hasRoomNumber
       : !!address;
 
   return (
