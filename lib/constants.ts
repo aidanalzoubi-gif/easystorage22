@@ -77,8 +77,8 @@ export const BOOKING_STATUS_ORDER: string[] = [
 ];
 
 // Contact info for insurance photos
-export const INSURANCE_EMAIL = 'photos@ubstorage.com';
-export const INSURANCE_PHONE = '(716) 555-0123';
+export const INSURANCE_EMAIL = 'info@easystroagenys.com';
+export const INSURANCE_PHONE = '(716) 243-2745';
 
 // May 2026 pickup dates (weekdays only for example)
 export const AVAILABLE_PICKUP_DATES = [
