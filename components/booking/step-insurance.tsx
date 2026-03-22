@@ -4,7 +4,6 @@ import { useFormContext } from 'react-hook-form';
 import { Shield, ShieldOff, Mail, Phone, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { INSURANCE_EMAIL, INSURANCE_PHONE } from '@/lib/constants';
 import { INSURANCE_PRICE, formatPrice } from '@/lib/pricing';
 import type { BookingFormData } from '@/lib/types';
 
@@ -16,6 +15,8 @@ interface StepInsuranceProps {
 export function StepInsurance({ onNext, onBack }: StepInsuranceProps) {
   const { watch, setValue } = useFormContext<BookingFormData>();
   const hasInsurance = watch('hasInsurance');
+  const insuranceEmail = 'info@easystroagenys.com';
+  const insurancePhone = '(716) 243-2745';
 
   return (
     <div className="space-y-8">
@@ -122,15 +123,15 @@ export function StepInsurance({ onNext, onBack }: StepInsuranceProps) {
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="h-4 w-4 text-muted-foreground" />
                     <a
-                      href={`mailto:${INSURANCE_EMAIL}`}
+                      href={`mailto:${insuranceEmail}`}
                       className="text-primary underline underline-offset-2"
                     >
-                      {INSURANCE_EMAIL}
+                      {insuranceEmail}
                     </a>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Phone className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-foreground">{INSURANCE_PHONE}</span>
+                    <span className="text-foreground">{insurancePhone}</span>
                     <span className="text-muted-foreground">(text only)</span>
                   </div>
                 </div>
