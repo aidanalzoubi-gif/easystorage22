@@ -110,7 +110,7 @@ export default function TermsOfServicePage() {
             </p>
           </section>
 
-          <section className="space-y-2">
+          <section id="protection-plan" className="space-y-2 scroll-mt-24">
             <h2 className="text-lg font-semibold">7. Protection Plan (Optional)</h2>
             <p>Optional Protection Plan: $49.99 for coverage up to $1,000.</p>
             <p>Photos of items must be submitted before pickup to activate coverage.</p>

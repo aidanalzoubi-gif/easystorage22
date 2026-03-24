@@ -34,7 +34,9 @@ const PAYMENT_ICONS: Record<PaymentMethod, React.ReactNode> = {
 export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps) {
   const { watch, setValue } = useFormContext<BookingFormData>();
   const paymentMethod = watch('paymentMethod');
-  const acceptedTerms = watch('acceptedTerms');
+  const acceptedPrivacyPolicy = watch('acceptedPrivacyPolicy');
+  const acceptedTermsOfService = watch('acceptedTermsOfService');
+  const acceptedProtectionPlan = watch('acceptedProtectionPlan');
   const boxCount = watch('boxCount');
   const furnitureItems = watch('furnitureItems') || [];
   const hasInsurance = watch('hasInsurance');
@@ -44,7 +46,11 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
   const depositAmount = calculateDeposit(totalPrice);
   const balanceAmount = calculateBalance(totalPrice, depositAmount);
 
-  const canProceed = !!paymentMethod && !!acceptedTerms;
+  const canProceed =
+    !!paymentMethod
+    && !!acceptedPrivacyPolicy
+    && !!acceptedTermsOfService
+    && !!acceptedProtectionPlan;
 
   return (
     <div className="space-y-8">
@@ -194,27 +200,110 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
         </div>
       )}
 
-      <div className="space-y-3 rounded-xl border border-border bg-card p-4">
+      <div className="space-y-4 rounded-xl border border-border bg-card p-4">
         <label className="flex cursor-pointer items-start gap-3">
           <Checkbox
-            checked={acceptedTerms}
+            checked={acceptedPrivacyPolicy}
             onCheckedChange={(checked) => {
-              setValue('acceptedTerms', checked === true, { shouldValidate: true });
+              setValue('acceptedPrivacyPolicy', checked === true, { shouldValidate: true });
             }}
             className="mt-0.5"
           />
           <span className="text-sm text-foreground">
-            I agree to the{' '}
+            I acknowledge I have read and agree to the{' '}
+            <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-primary">
+              Privacy Policy
+            </Link>
+          </span>
+        </label>
+
+        <label className="flex cursor-pointer items-start gap-3">
+          <Checkbox
+            checked={acceptedTermsOfService}
+            onCheckedChange={(checked) => {
+              setValue('acceptedTermsOfService', checked === true, { shouldValidate: true });
+            }}
+            className="mt-0.5"
+          />
+          <span className="text-sm text-foreground">
+            I acknowledge I have read and agree to the{' '}
             <Link href="/terms-of-service" className="underline underline-offset-2 hover:text-primary">
               Terms of Service
             </Link>{' '}
-            &amp; Protection Plan.
           </span>
         </label>
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          By proceeding, you agree to our Terms of Service, including all Protection Plan
-          requirements, photo submission requirements, liability limitations, and claims policies.
-        </p>
+
+        <div className="rounded-lg border border-border bg-muted/30 p-4">
+          <h4 className="text-sm font-semibold text-foreground">Optional Protection Plan Summary</h4>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Optional Coverage: {formatPrice(INSURANCE_PRICE)}
+          </p>
+
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-foreground">
+            What it Covers:
+          </p>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-muted-foreground">
+            <li>Damage or loss of items while in our custody, up to $1,000</li>
+            <li>Electronics and TVs must be properly packed (original box or padding)</li>
+            <li>Fragile items must be cushioned with bubble wrap, padding, or other protection</li>
+          </ul>
+
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-foreground">
+            What it Does Not Cover:
+          </p>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-muted-foreground">
+            <li>Pre-existing damage</li>
+            <li>Items not packed properly</li>
+            <li>Items over $250 not disclosed at signup</li>
+            <li>Prohibited or hazardous items</li>
+          </ul>
+
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-foreground">
+            Requirements to Activate Coverage:
+          </p>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-muted-foreground">
+            <li>Submit photos of all items before pickup</li>
+            <li>Claims must be submitted within 48 hours of delivery</li>
+          </ul>
+
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-foreground">
+            Important Notes:
+          </p>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-muted-foreground">
+            <li>Standard service liability without Protection Plan is $250 max</li>
+            <li>Customers are responsible for disclosing any item over $250</li>
+          </ul>
+
+          <p className="mt-3 text-xs text-muted-foreground">
+            Full details are listed in the{' '}
+            <Link
+              href="/terms-of-service#protection-plan"
+              className="underline underline-offset-2 hover:text-primary"
+            >
+              Optional Protection Plan terms
+            </Link>
+            .
+          </p>
+        </div>
+
+        <label className="flex cursor-pointer items-start gap-3">
+          <Checkbox
+            checked={acceptedProtectionPlan}
+            onCheckedChange={(checked) => {
+              setValue('acceptedProtectionPlan', checked === true, { shouldValidate: true });
+            }}
+            className="mt-0.5"
+          />
+          <span className="text-sm text-foreground">
+            I acknowledge I have read and agree to the{' '}
+            <Link
+              href="/terms-of-service#protection-plan"
+              className="underline underline-offset-2 hover:text-primary"
+            >
+              Optional Protection Plan terms
+            </Link>
+          </span>
+        </label>
       </div>
 
       {/* Navigation */}
