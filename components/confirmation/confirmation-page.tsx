@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Footer } from '@/components/shared/footer';
 import { useStore } from '@/lib/store';
 import { formatPrice } from '@/lib/pricing';
 import { INSURANCE_EMAIL, INSURANCE_PHONE, TIME_SLOTS } from '@/lib/constants';
@@ -80,8 +81,8 @@ export function ConfirmationPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="mx-auto max-w-2xl px-4 py-12 sm:py-16">
+    <div className="flex min-h-screen flex-col bg-background">
+      <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-12 sm:py-16">
         <div className="text-center">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
             <CheckCircle2 className="h-10 w-10 text-accent" />
@@ -253,6 +254,8 @@ export function ConfirmationPageContent() {
           </Link>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

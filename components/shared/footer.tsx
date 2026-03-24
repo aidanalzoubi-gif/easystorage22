@@ -60,6 +60,15 @@ export function Footer() {
               info@easystoragenys.com
             </a>
           </p>
+          <p className="mt-3 text-center text-sm text-muted-foreground">
+            <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-foreground">
+              Privacy Policy
+            </Link>{' '}
+            |{' '}
+            <Link href="/terms-of-service" className="underline underline-offset-2 hover:text-foreground">
+              Terms of Service
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

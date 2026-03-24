@@ -50,6 +50,7 @@ const DEFAULT_VALUES: BookingFormData = {
   phone: '',
   ubPersonNumber: '',
   paymentMethod: 'venmo',
+  acceptedTerms: false,
 };
 
 export function BookingForm() {

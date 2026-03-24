@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { BookingForm } from '@/components/booking/booking-form';
+import { Footer } from '@/components/shared/footer';
 
 export const metadata = {
   title: 'Book Your Storage | Easy Storage',
@@ -38,6 +39,8 @@ export default function BookPage() {
           <BookingForm />
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useFormContext } from 'react-hook-form';
 import { Banknote, Smartphone, CreditCard, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { PAYMENT_METHODS } from '@/lib/constants';
 import {
@@ -32,6 +34,7 @@ const PAYMENT_ICONS: Record<PaymentMethod, React.ReactNode> = {
 export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps) {
   const { watch, setValue } = useFormContext<BookingFormData>();
   const paymentMethod = watch('paymentMethod');
+  const acceptedTerms = watch('acceptedTerms');
   const boxCount = watch('boxCount');
   const furnitureItems = watch('furnitureItems') || [];
   const hasInsurance = watch('hasInsurance');
@@ -41,7 +44,7 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
   const depositAmount = calculateDeposit(totalPrice);
   const balanceAmount = calculateBalance(totalPrice, depositAmount);
 
-  const canProceed = !!paymentMethod;
+  const canProceed = !!paymentMethod && !!acceptedTerms;
 
   return (
     <div className="space-y-8">
@@ -190,6 +193,29 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
           )}
         </div>
       )}
+
+      <div className="space-y-3 rounded-xl border border-border bg-card p-4">
+        <label className="flex cursor-pointer items-start gap-3">
+          <Checkbox
+            checked={acceptedTerms}
+            onCheckedChange={(checked) => {
+              setValue('acceptedTerms', checked === true, { shouldValidate: true });
+            }}
+            className="mt-0.5"
+          />
+          <span className="text-sm text-foreground">
+            I agree to the{' '}
+            <Link href="/terms-of-service" className="underline underline-offset-2 hover:text-primary">
+              Terms of Service
+            </Link>{' '}
+            &amp; Protection Plan.
+          </span>
+        </label>
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          By proceeding, you agree to our Terms of Service, including all Protection Plan
+          requirements, photo submission requirements, liability limitations, and claims policies.
+        </p>
+      </div>
 
       {/* Navigation */}
       <div className="flex justify-between pt-4">

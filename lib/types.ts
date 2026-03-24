@@ -118,4 +118,5 @@ export interface BookingFormData {
 
   // Step 8: Payment
   paymentMethod: PaymentMethod;
+  acceptedTerms: boolean;
 }
