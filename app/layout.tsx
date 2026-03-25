@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   description:
     'Affordable summer storage for University at Buffalo students. We pick up, store, and deliver your belongings. Starting at $14.99/box.',
   keywords: ['Easy Storage', 'Buffalo student storage', 'summer storage', 'college storage'],
+  icons: {
+    icon: '/images/easy-storage-logo.png',
+    shortcut: '/images/easy-storage-logo.png',
+    apple: '/images/easy-storage-logo.png',
+  },
 }
 
 export const viewport: Viewport = {
