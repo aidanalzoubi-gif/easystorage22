@@ -13,7 +13,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { StatusTracker } from './status-tracker';
 import { BOOKING_STATUS_LABELS, TIME_SLOTS, INSURANCE_EMAIL, INSURANCE_PHONE } from '@/lib/constants';
 import { formatPrice } from '@/lib/pricing';
 import type { Booking } from '@/lib/types';
@@ -128,20 +127,14 @@ export function BookingCard({ booking }: BookingCardProps) {
         {/* Payment Status */}
         <div className="rounded-lg bg-muted/50 p-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Deposit (20%)</span>
+            <span className="text-sm text-muted-foreground">Deposit</span>
             <div className="flex items-center gap-2">
               <span className="font-medium text-foreground">
                 {formatPrice(booking.depositAmount)}
               </span>
-              {booking.depositPaid ? (
-                <Badge variant="outline" className="bg-accent/10 text-accent border-accent/20">
-                  Paid
-                </Badge>
-              ) : (
-                <Badge variant="outline" className="bg-yellow-500/10 text-yellow-600 border-yellow-500/20">
-                  Due
-                </Badge>
-              )}
+              <Badge variant="outline" className="bg-accent/10 text-accent border-accent/20">
+                Paid
+              </Badge>
             </div>
           </div>
           <div className="mt-2 flex items-center justify-between">
@@ -191,12 +184,6 @@ export function BookingCard({ booking }: BookingCardProps) {
         {/* Expanded Details */}
         {expanded && (
           <div className="space-y-6 border-t border-border pt-6">
-            {/* Status Tracker */}
-            <div>
-              <h4 className="mb-4 font-medium text-foreground">Order Status</h4>
-              <StatusTracker currentStatus={booking.status} />
-            </div>
-
             {/* Fall Delivery */}
             <div>
               <h4 className="mb-2 font-medium text-foreground">Fall Delivery</h4>

@@ -13,20 +13,16 @@ import { useStore } from '@/lib/store';
 import type { Booking } from '@/lib/types';
 
 export default function DashboardPage() {
-  const { getBookingsByEmail, isLoading } = useStore();
-  const [email, setEmail] = useState('');
-  const [searchedEmail, setSearchedEmail] = useState('');
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const { getBookingById, isLoading } = useStore();
+  const [bookingId, setBookingId] = useState('');
+  const [booking, setBooking] = useState<Booking | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
-
-  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (isValidEmail) {
-      const found = getBookingsByEmail(email.trim());
-      setBookings(found);
-      setSearchedEmail(email.trim());
+    if (bookingId.trim()) {
+      const found = getBookingById(bookingId.trim());
+      setBooking(found ?? null);
       setHasSearched(true);
     }
   };
@@ -43,27 +39,27 @@ export default function DashboardPage() {
               My Bookings
             </h1>
             <p className="mt-2 text-muted-foreground">
-              Enter your email to view your storage bookings
+              Enter your Booking ID to view your storage booking
             </p>
           </div>
 
-          {/* Email Lookup Form */}
+          {/* Booking ID Lookup Form */}
           <form onSubmit={handleSearch} className="mx-auto mt-8 max-w-md">
             <div className="flex gap-2">
               <div className="flex-1">
-                <Label htmlFor="email" className="sr-only">
-                  Email address
+                <Label htmlFor="bookingId" className="sr-only">
+                  Booking ID
                 </Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="bookingId"
+                  type="text"
+                  placeholder="Enter your Booking ID"
+                  value={bookingId}
+                  onChange={(e) => setBookingId(e.target.value)}
                   className="h-12"
                 />
               </div>
-              <Button type="submit" size="lg" disabled={isLoading || !isValidEmail}>
+              <Button type="submit" size="lg" disabled={isLoading || !bookingId.trim()}>
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>
@@ -73,27 +69,18 @@ export default function DashboardPage() {
           {/* Results */}
           {hasSearched && (
             <div className="mt-12">
-              {bookings.length > 0 ? (
-                <div className="space-y-6">
-                  <p className="text-sm text-muted-foreground">
-                    Found {bookings.length} booking{bookings.length !== 1 ? 's' : ''} for{' '}
-                    <span className="font-medium text-foreground">{searchedEmail}</span>
-                  </p>
-                  {bookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} />
-                  ))}
-                </div>
+              {booking ? (
+                <BookingCard booking={booking} />
               ) : (
                 <div className="text-center">
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-muted">
                     <Package className="h-8 w-8 text-muted-foreground" />
                   </div>
                   <h2 className="mt-4 text-xl font-semibold text-foreground">
-                    No bookings found
+                    No booking found
                   </h2>
                   <p className="mt-2 text-muted-foreground">
-                    We couldn&apos;t find any bookings for{' '}
-                    <span className="font-medium text-foreground">{searchedEmail}</span>
+                    We couldn&apos;t find a booking with that ID.
                   </p>
                   <Link href="/book" className="mt-6 inline-block">
                     <Button>
@@ -116,7 +103,7 @@ export default function DashboardPage() {
                 View your bookings
               </h2>
               <p className="mx-auto mt-2 max-w-sm text-muted-foreground">
-                Enter the email address you used when booking to see your storage orders and track their status.
+                Enter your Booking ID to see your storage order details.
               </p>
               <div className="mt-8">
                 <p className="text-sm text-muted-foreground">
