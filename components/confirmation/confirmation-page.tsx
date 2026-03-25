@@ -190,34 +190,20 @@ export function ConfirmationPageContent() {
                   1
                 </span>
                 <div>
-                  <p className="font-medium text-foreground">Pay your deposit</p>
-                  <p className="text-sm text-muted-foreground">
-                    Send {formatPrice(booking.depositAmount)} via your chosen payment method
-                  </p>
-                </div>
-              </li>
-              {booking.cardboardBoxesRequested > 0 && (
-                <li className="flex gap-4">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
-                    2
-                  </span>
-                  <div>
-                    <p className="font-medium text-foreground">Receive your boxes</p>
-                    <p className="text-sm text-muted-foreground">
-                      We&apos;ll deliver {booking.cardboardBoxesRequested} boxes to you
-                      {booking.boxDeliveryDate && ` on ${formatDate(booking.boxDeliveryDate)}`}
-                    </p>
-                  </div>
-                </li>
-              )}
-              <li className="flex gap-4">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
-                  {booking.cardboardBoxesRequested > 0 ? '3' : '2'}
-                </span>
-                <div>
                   <p className="font-medium text-foreground">Pack your items</p>
                   <p className="text-sm text-muted-foreground">
                     Have everything boxed up and ready before pickup day
+                  </p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground">
+                  2
+                </span>
+                <div>
+                  <p className="font-medium text-foreground">Pay Balance</p>
+                  <p className="text-sm text-muted-foreground">
+                    Have your remaining balance ready on pickup
                   </p>
                 </div>
               </li>
