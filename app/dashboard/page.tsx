@@ -19,9 +19,11 @@ export default function DashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (isValidEmail) {
       const found = getBookingsByEmail(email.trim());
       setBookings(found);
       setSearchedEmail(email.trim());
@@ -55,13 +57,13 @@ export default function DashboardPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your .edu email"
+                  placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="h-12"
                 />
               </div>
-              <Button type="submit" size="lg" disabled={isLoading || !email.trim()}>
+              <Button type="submit" size="lg" disabled={isLoading || !isValidEmail}>
                 <Search className="mr-2 h-4 w-4" />
                 Search
               </Button>

@@ -18,6 +18,8 @@ export default function PrivacyPolicyPage() {
           <p>
             Easy Storage Solutions LLC ("we," "our," or "us") operates the website
             easystoragenys.com and provides pickup, storage, and delivery services in New York.
+            Easy Storage Solutions LLC is an independent business and is not affiliated,
+            sponsored, or endorsed by the University at Buffalo (UB).
             This Privacy Policy explains what information we collect, how we use it, and your
             rights regarding your personal information.
           </p>

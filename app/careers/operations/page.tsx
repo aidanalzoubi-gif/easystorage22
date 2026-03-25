@@ -60,8 +60,8 @@ export default function OperationsJobPage() {
                 <div>
                   <h2 className="text-xl font-bold text-foreground">About Us</h2>
                   <p className="mt-3 text-muted-foreground">
-                    UB Easy Storage is a fast-growing student-run startup that helps University at Buffalo 
-                    students store their belongings over the summer. We provide free boxes, free pickup, 
+                    Easy Storage is a fast-growing student-run startup that helps University at Buffalo 
+                    students store their belongings over the summer. We provide free boxes, pickup, 
                     secure storage, and delivery in August, making move-out simple and stress-free.
                   </p>
                   <p className="mt-3 text-muted-foreground">
@@ -127,10 +127,11 @@ export default function OperationsJobPage() {
                         </li>
                       </ul>
                     </div>
-                    <div className="rounded-lg bg-primary/10 p-4">
-                      <p className="font-semibold text-foreground">
-                        Top assistants working peak days can earn <span className="text-primary">$500-$1,800+</span> during the move-in/out period.
-                      </p>
+                    <div>
+                      <h3 className="font-semibold text-foreground">You will also receive:</h3>
+                      <ul className="mt-2 space-y-2 text-muted-foreground">
+                        <li className="font-semibold text-primary">- FREE summer storage for yourself</li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -140,11 +141,10 @@ export default function OperationsJobPage() {
                   <h2 className="text-xl font-bold text-foreground">Job Requirements</h2>
                   <ul className="mt-4 space-y-3">
                     {[
-                      'Must be a current University at Buffalo student or local student',
                       'Must be available during the contract period May 5-25 and Aug 18-26',
                       'Must be able to commit to scheduled shifts (including weekends)',
                       'Able to lift and carry items up to 50 lbs',
-                      'Punctual, reliable, and able to work in a fast-paced environment',
+                      'Reliable and able to work in a fast-paced environment',
                       'Comfortable working outdoors and in residence halls',
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-muted-foreground">
@@ -159,7 +159,7 @@ export default function OperationsJobPage() {
                     <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                       <li>- Valid U.S. driver's license required</li>
                       <li>- Clean driving record preferred</li>
-                      <li>- Comfortable driving vans or small trucks</li>
+                      <li>- Comfortable driving small and large trucks</li>
                     </ul>
                   </div>
                   
@@ -208,7 +208,6 @@ export default function OperationsJobPage() {
                         <div>
                           <p className="font-medium text-foreground">Compensation</p>
                           <p className="text-muted-foreground">$16-20/hour</p>
-                          <p className="text-muted-foreground">$500-$1,800+ potential</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">

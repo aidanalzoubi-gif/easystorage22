@@ -57,8 +57,6 @@ export default function CareersPage() {
               Join the Easy Storage Team
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-              We're a fast-growing student-run startup helping UB students store their belongings over the summer. 
-              Last year we served 200+ students, and this year we're expanding significantly.
             </p>
           </div>
         </section>

@@ -211,7 +211,7 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
           />
           <span className="text-sm text-foreground">
             I acknowledge I have read and agree to the{' '}
-            <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-primary">
+            <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-primary">
               Privacy Policy
             </Link>
           </span>
@@ -227,7 +227,7 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
           />
           <span className="text-sm text-foreground">
             I acknowledge I have read and agree to the{' '}
-            <Link href="/terms-of-service" className="underline underline-offset-2 hover:text-primary">
+            <Link href="/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-primary">
               Terms of Service
             </Link>{' '}
           </span>
@@ -278,6 +278,8 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
             Full details are listed in the{' '}
             <Link
               href="/terms-of-service#protection-plan"
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-primary"
             >
               Optional Protection Plan terms
@@ -298,6 +300,8 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
             I acknowledge I have read and agree to the{' '}
             <Link
               href="/terms-of-service#protection-plan"
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-primary"
             >
               Optional Protection Plan terms

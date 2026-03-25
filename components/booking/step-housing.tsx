@@ -240,6 +240,9 @@ export function StepHousing({ onNext }: StepHousingProps) {
       {/* Off-Campus Details */}
       {housingType === 'off-campus' && (
         <div className="space-y-4 rounded-xl border border-border bg-card p-6">
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-400">
+            Off-campus pickup is available within a 5 mile radius of North or South Campus of University at Buffalo.
+          </div>
           <div className="space-y-2">
             <Label htmlFor="address">Full Address</Label>
             <Input

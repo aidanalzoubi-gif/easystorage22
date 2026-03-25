@@ -17,11 +17,9 @@ export function StepContact({ onNext, onBack }: StepContactProps) {
   const studentName = watch('studentName');
   const email = watch('email');
   const phone = watch('phone');
-  const ubPersonNumber = watch('ubPersonNumber');
-
   const isValidEmail = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isValidPhone = phone && phone.replace(/\D/g, '').length >= 10;
-  const canProceed = !!studentName && isValidEmail && isValidPhone; // ubPersonNumber is optional/recommended
+  const canProceed = !!studentName && isValidEmail && isValidPhone;
 
   const formatPhoneNumber = (value: string) => {
     const numbers = value.replace(/\D/g, '');
@@ -90,24 +88,6 @@ export function StepContact({ onNext, onBack }: StepContactProps) {
             onChange={(e) => setValue('phone', formatPhoneNumber(e.target.value))}
             className="h-12"
           />
-        </div>
-
-        {/* UB Person Number */}
-        <div className="space-y-2">
-          <Label htmlFor="ubPersonNumber" className="flex items-center gap-2">
-            <Info className="h-4 w-4 text-muted-foreground" />
-            UB Person Number (recommended)
-          </Label>
-          <Input
-            id="ubPersonNumber"
-            placeholder="e.g., 12345678"
-            value={ubPersonNumber || ''}
-            onChange={(e) => setValue('ubPersonNumber', e.target.value)}
-            className="h-12"
-          />
-          <p className="text-sm text-muted-foreground">
-            Optional but highly recommended for faster processing.
-          </p>
         </div>
 
         {/* Info Note */}

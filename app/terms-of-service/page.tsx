@@ -237,7 +237,15 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-semibold">16. Governing Law</h2>
+            <h2 className="text-lg font-semibold">16. Affiliation Disclaimer</h2>
+            <p>
+              Easy Storage Solutions LLC is an independent business and is not affiliated,
+              sponsored, or endorsed by the University at Buffalo (UB) or any other university.
+            </p>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="text-lg font-semibold">17. Governing Law</h2>
             <p>
               These Terms are governed by the laws of New York State, and disputes will be
               resolved in local courts.
@@ -245,15 +253,16 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-semibold">17. Changes to Terms</h2>
+            <h2 className="text-lg font-semibold">18. Changes to Terms</h2>
             <p>We may update these Terms at any time.</p>
             <p>Continued use of our services constitutes acceptance of any changes.</p>
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-lg font-semibold">18. Contact Information</h2>
+            <h2 className="text-lg font-semibold">19. Contact Information</h2>
             <p>
               Questions regarding these Terms or the Protection Plan can be sent to:
+              {' '}
               info@easystoragenys.com
             </p>
           </section>

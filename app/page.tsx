@@ -227,23 +227,7 @@ export default function HomePage() {
               </Card>
             </div>
 
-            {/* Furniture equivalents */}
-            <div className="mx-auto mt-12 max-w-2xl">
-              <p className="text-center text-sm font-medium text-foreground">
-                Large items count as multiple boxes:
-              </p>
-              <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-                <span>Suitcase = 1 box</span>
-                <span className="text-border">|</span>
-                <span>Mini Fridge = 2 boxes</span>
-                <span className="text-border">|</span>
-                <span>Chair = 2 boxes</span>
-                <span className="text-border">|</span>
-                <span>Mattress = 4 boxes</span>
-                <span className="text-border">|</span>
-                <span>Desk = 5 boxes</span>
-              </div>
-            </div>
+
           </div>
         </section>
 
@@ -292,16 +276,16 @@ export default function HomePage() {
                   How do I pack my items?
                 </AccordionTrigger>
                 <AccordionContent>
-                  We deliver free cardboard boxes to you before pickup. Just pack your belongings, seal the boxes, and we&apos;ll take care of the rest. For fragile items, we recommend adding extra padding.
+                  We&apos;ll drop off free cardboard boxes before your pickup—just pack your stuff, tape them up, and we&apos;ll handle the rest. Got fragile items? Add some extra padding to keep everything safe.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-5">
                 <AccordionTrigger>
-                  Is my stuff insured?
+                  Are my items covered?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Basic liability is included, but we strongly recommend adding our optional insurance for {formatPrice(INSURANCE_PRICE)} per booking. This covers up to $1,000 in damages or loss. You&apos;ll just need to send us photos of your items before pickup.
+                  Basic liability is included, but we strongly recommend adding our optional coverage for {formatPrice(INSURANCE_PRICE)} per booking. This covers up to $1,000 in damages or loss. You&apos;ll just need to send us photos of your items before pickup.
                 </AccordionContent>
               </AccordionItem>
 
@@ -310,7 +294,7 @@ export default function HomePage() {
                   Can I store furniture?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Yes! We accept suitcases, mini fridges, chairs, mattresses, desks, and more. Large items are counted as multiple &quot;box equivalents&quot; for pricing. Check our booking form for the full list.
+                  Yes! We accept suitcases, mini fridges, chairs, mattresses, desks, and more.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

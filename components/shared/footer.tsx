@@ -69,6 +69,9 @@ export function Footer() {
               Terms of Service
             </Link>
           </p>
+          <p className="mt-2 text-center text-xs text-muted-foreground">
+            Not affilated with the University at Buffalo
+          </p>
         </div>
       </div>
     </footer>

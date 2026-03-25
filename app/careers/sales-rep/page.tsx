@@ -60,8 +60,8 @@ export default function SalesRepJobPage() {
                 <div>
                   <h2 className="text-xl font-bold text-foreground">About Us</h2>
                   <p className="mt-3 text-muted-foreground">
-                    UB Easy Storage is a fast-growing student-run startup helping University at Buffalo students 
-                    store their belongings over the summer. We provide free boxes, free pickup, and free delivery, 
+                    Easy Storage is a fast-growing student-run startup helping University at Buffalo students 
+                    store their belongings over the summer. We provide free boxes, pickup, and free delivery, 
                     making storage simple and affordable for students leaving campus.
                   </p>
                   <p className="mt-3 text-muted-foreground">
@@ -79,7 +79,7 @@ export default function SalesRepJobPage() {
                   <h2 className="text-xl font-bold text-foreground">What You'll Do</h2>
                   <ul className="mt-4 space-y-3">
                     {[
-                      'Approach students on campus and introduce them to UB Easy Storage',
+                      'Approach students on campus and introduce them to Easy Storage',
                       'Explain our storage service and answer basic questions',
                       'Help students book their storage spot on the spot',
                       'Generate leads and referrals from students',
@@ -119,15 +119,8 @@ export default function SalesRepJobPage() {
                       </ul>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">Expected Earnings:</h3>
-                      <p className="mt-2 text-muted-foreground">
-                        Top performers typically earn <span className="font-semibold text-foreground">$800 - $2,000+</span> during the sales season.
-                      </p>
-                    </div>
-                    <div>
                       <h3 className="font-semibold text-foreground">You will also receive:</h3>
                       <ul className="mt-2 space-y-2 text-muted-foreground">
-                        <li>- A personalized referral code to track your sales</li>
                         <li>- Sales training from the founders</li>
                         <li>- Experience working with a real startup sales team</li>
                         <li className="font-semibold text-primary">- FREE summer storage for yourself</li>
@@ -141,7 +134,6 @@ export default function SalesRepJobPage() {
                   <h2 className="text-xl font-bold text-foreground">Job Requirements</h2>
                   <ul className="mt-4 space-y-3">
                     {[
-                      'Must be a current University at Buffalo student',
                       'Must commit to at least 10 hours per week during the contract period',
                       'Must be available from March 20 to May 15',
                       'Comfortable approaching and speaking with new people',
@@ -197,7 +189,6 @@ export default function SalesRepJobPage() {
                         <div>
                           <p className="font-medium text-foreground">Compensation</p>
                           <p className="text-muted-foreground">$10-25 per signup</p>
-                          <p className="text-muted-foreground">$800-$2,000+ potential</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
