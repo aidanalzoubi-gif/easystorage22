@@ -96,6 +96,9 @@ export function StepStorage({ onNext, onBack }: StepStorageProps) {
               <p className="text-xs text-muted-foreground">
                 26" x 16" x 15"
               </p>
+              <p className="text-xs text-muted-foreground">
+                Holds up to 50 lb
+              </p>
               <p className="text-sm text-muted-foreground">
                 {formatPrice(PRICE_PER_BOX)} each
               </p>
