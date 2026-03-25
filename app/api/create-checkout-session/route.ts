@@ -38,8 +38,9 @@ export async function POST(request: NextRequest) {
         },
       ],
       mode: 'payment',
+      client_reference_id: bookingId,
       customer_email: customerEmail ?? undefined,
-      success_url: `${origin}/confirmation?id=${bookingId}&payment=success`,
+      success_url: `${origin}/confirmation?id=${bookingId}&payment=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/book?payment=cancelled`,
       metadata: { bookingId, customerName: customerName ?? '' },
     });

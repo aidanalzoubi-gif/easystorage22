@@ -132,14 +132,6 @@ export function BookingForm() {
       addBooking(booking);
 
       // Redirect to Stripe Checkout for deposit payment
-      // Save booking to Supabase
-      await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(booking),
-      });
-
-      // Redirect to Stripe Checkout for deposit payment
       const resp = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

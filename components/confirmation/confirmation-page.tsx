@@ -35,16 +35,28 @@ export function ConfirmationPageContent() {
   const searchParams = useSearchParams();
   const bookingId = searchParams.get('id');
   const paymentStatus = searchParams.get('payment');
+  const sessionId = searchParams.get('session_id');
   const { getBookingById, updateBooking, isLoading } = useStore();
   const [booking, setBooking] = useState<Booking | null>(null);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    async function syncPaidBookingToSupabase(found: Booking) {
+      if (paymentStatus !== 'success' || !sessionId) return;
+
+      await fetch('/api/bookings/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ booking: found, sessionId }),
+      });
+    }
+
     if (!isLoading && bookingId) {
       const found = getBookingById(bookingId);
       if (found) {
         // If Stripe redirected back with success, mark deposit as paid
         if (paymentStatus === 'success' && !found.depositPaid) {
+          syncPaidBookingToSupabase(found);
           updateBooking(bookingId, {
             depositPaid: true,
             depositPaymentMethod: 'stripe',
@@ -52,11 +64,12 @@ export function ConfirmationPageContent() {
           });
           setBooking({ ...found, depositPaid: true, depositPaymentMethod: 'stripe', status: 'deposit_paid' });
         } else {
+          syncPaidBookingToSupabase(found);
           setBooking(found);
         }
       }
     }
-  }, [bookingId, paymentStatus, getBookingById, updateBooking, isLoading]);
+  }, [bookingId, paymentStatus, sessionId, getBookingById, updateBooking, isLoading]);
 
   const copyBookingId = () => {
     if (booking) {
