@@ -8,7 +8,7 @@ export async function GET(
     const { id } = await params;
     const { data, error } = await supabaseAdmin
       .from('bookings')
-      .select('data')
+      .select('*')
       .eq('id', id)
       .single();
 
@@ -16,7 +16,7 @@ export async function GET(
       return Response.json({ error: 'Booking not found' }, { status: 404 });
     }
 
-    return Response.json({ booking: data.data });
+    return Response.json({ booking: data });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     return Response.json({ error: message }, { status: 500 });
