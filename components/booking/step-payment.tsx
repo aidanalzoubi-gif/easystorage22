@@ -79,7 +79,7 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
           ))}
           {hasInsurance && (
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Insurance</span>
+              <span className="text-muted-foreground">Coverage</span>
               <span className="text-foreground">{formatPrice(INSURANCE_PRICE)}</span>
             </div>
           )}

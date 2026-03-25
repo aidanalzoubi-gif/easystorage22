@@ -21,7 +21,7 @@ export function StepInsurance({ onNext, onBack }: StepInsuranceProps) {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-foreground">Add insurance?</h2>
+        <h2 className="text-2xl font-bold text-foreground">Add coverage?</h2>
         <p className="mt-2 text-muted-foreground">
           Protect your belongings with our optional coverage.
         </p>
@@ -52,7 +52,7 @@ export function StepInsurance({ onNext, onBack }: StepInsuranceProps) {
           />
           <div className="text-center">
             <p className="font-semibold text-foreground">
-              Yes, add insurance
+              Yes, add coverage
             </p>
             <p className="text-2xl font-bold text-primary">
               {formatPrice(INSURANCE_PRICE)}

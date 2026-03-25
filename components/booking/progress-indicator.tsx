@@ -9,7 +9,7 @@ const STEPS = [
   { number: 3, label: 'Boxes' },
   { number: 4, label: 'Pickup' },
   { number: 5, label: 'Delivery' },
-  { number: 6, label: 'Insurance' },
+  { number: 6, label: 'Coverage' },
   { number: 7, label: 'Contact' },
   { number: 8, label: 'Payment' },
 ];
