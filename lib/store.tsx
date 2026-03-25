@@ -131,8 +131,20 @@ export function useStore() {
 }
 
 export function generateBookingId(): string {
-  const randomNum = Math.floor(Math.random() * 10000)
-    .toString()
-    .padStart(4, '0');
-  return `UB-STO-${randomNum}`;
+  const now = new Date();
+  const datePart = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(
+    now.getDate()
+  ).padStart(2, '0')}`;
+
+  // Use cryptographically strong randomness when available.
+  let randomPart = '';
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    const bytes = new Uint8Array(4);
+    crypto.getRandomValues(bytes);
+    randomPart = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+  } else {
+    randomPart = Math.random().toString(36).slice(2, 10).toUpperCase();
+  }
+
+  return `UB-STO-${datePart}-${randomPart}`;
 }

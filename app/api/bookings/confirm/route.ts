@@ -79,9 +79,15 @@ export async function POST(request: Request) {
 
     const { error } = await supabaseAdmin
       .from('bookings')
-      .upsert([flattened], { onConflict: 'id' });
+      .insert([flattened]);
 
     if (error) {
+      if ((error as { code?: string }).code === '23505') {
+        return Response.json(
+          { error: 'Duplicate booking ID. Please contact support.' },
+          { status: 409 }
+        );
+      }
       return Response.json({ error: error.message }, { status: 500 });
     }
 
