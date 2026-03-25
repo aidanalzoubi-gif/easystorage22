@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Banknote, Smartphone, CreditCard, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { cn } from '@/lib/utils';
-import { PAYMENT_METHODS } from '@/lib/constants';
 import {
   calculateTotalBoxes,
   calculateTotalPrice,
@@ -16,7 +14,7 @@ import {
   PRICE_PER_BOX,
   INSURANCE_PRICE,
 } from '@/lib/pricing';
-import type { BookingFormData, PaymentMethod } from '@/lib/types';
+import type { BookingFormData } from '@/lib/types';
 
 interface StepPaymentProps {
   onSubmit: () => void;
@@ -24,16 +22,8 @@ interface StepPaymentProps {
   isSubmitting: boolean;
 }
 
-const PAYMENT_ICONS: Record<PaymentMethod, React.ReactNode> = {
-  zelle: <Smartphone className="h-6 w-6" />,
-  venmo: <Smartphone className="h-6 w-6" />,
-  stripe: <CreditCard className="h-6 w-6" />,
-  cash: <Banknote className="h-6 w-6" />,
-};
-
 export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps) {
   const { watch, setValue } = useFormContext<BookingFormData>();
-  const paymentMethod = watch('paymentMethod');
   const acceptedPrivacyPolicy = watch('acceptedPrivacyPolicy');
   const acceptedTermsOfService = watch('acceptedTermsOfService');
   const acceptedProtectionPlan = watch('acceptedProtectionPlan');
@@ -46,18 +36,22 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
   const depositAmount = calculateDeposit(totalPrice);
   const balanceAmount = calculateBalance(totalPrice, depositAmount);
 
+  useEffect(() => {
+    // Force Stripe for all bookings.
+    setValue('paymentMethod', 'stripe', { shouldValidate: true });
+  }, [setValue]);
+
   const canProceed =
-    !!paymentMethod
-    && !!acceptedPrivacyPolicy
+    !!acceptedPrivacyPolicy
     && !!acceptedTermsOfService
     && !!acceptedProtectionPlan;
 
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-foreground">Payment method</h2>
+        <h2 className="text-2xl font-bold text-foreground">Payment</h2>
         <p className="mt-2 text-muted-foreground">
-          Choose how you&apos;d like to pay. Only the deposit is due now.
+          Your deposit is paid securely through Stripe.
         </p>
       </div>
 
@@ -113,59 +107,17 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
         </div>
       </div>
 
-      {/* Payment Method Selection */}
-      <div className="space-y-4">
-        <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {PAYMENT_METHODS.map((method) => (
-            <button
-              key={method.value}
-              type="button"
-              onClick={() => setValue('paymentMethod', method.value as PaymentMethod)}
-              className={cn(
-                'flex items-start gap-4 rounded-xl border-2 p-4 text-left transition-all',
-                paymentMethod === method.value
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              )}
-            >
-              <div
-                className={cn(
-                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-                  paymentMethod === method.value
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground'
-                )}
-              >
-                {PAYMENT_ICONS[method.value as PaymentMethod]}
-              </div>
-              <div className="flex-1">
-                <p className="font-semibold text-foreground">{method.label}</p>
-                <p className="text-sm text-muted-foreground">{method.description}</p>
-              </div>
-              {paymentMethod === method.value && (
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Payment Instructions */}
-      {paymentMethod && (
-        <div className="rounded-xl border border-border bg-muted/30 p-6">
-          {paymentMethod === 'stripe' && (
-            <p className="text-muted-foreground">
-              After confirming your booking, you&apos;ll be securely redirected to
-              complete your deposit of{' '}
-              <span className="font-semibold text-foreground">
-                {formatPrice(depositAmount)}
-              </span>{' '}
-              via card or Apple Pay. Your balance is collected on pickup day.
-            </p>
-          )}
-        </div>
-      )}
+      <div className="rounded-xl border border-border bg-muted/30 p-6">
+        <p className="text-muted-foreground">
+          After confirming your booking, you&apos;ll be securely redirected to
+          complete your deposit of{' '}
+          <span className="font-semibold text-foreground">
+            {formatPrice(depositAmount)}
+          </span>{' '}
+          via card or Apple Pay. Your balance is collected on pickup day.
+        </p>
+      </div>
 
       <div className="space-y-4 rounded-xl border border-border bg-card p-4">
         <label className="flex cursor-pointer items-start gap-3">
