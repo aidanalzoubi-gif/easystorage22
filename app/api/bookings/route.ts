@@ -10,6 +10,25 @@ function flattenBooking(booking: Booking) {
       ? booking.apartmentName
       : booking.address;
 
+  // Build items description
+  const itemsParts: string[] = [];
+  if (booking.boxCount > 0) {
+    itemsParts.push(`${booking.boxCount} box${booking.boxCount !== 1 ? 'es' : ''}`);
+  }
+  if (booking.furnitureItems && booking.furnitureItems.length > 0) {
+    const furnitureDesc = booking.furnitureItems
+      .map((item) => `${item.quantity}x ${item.type}`)
+      .join(', ');
+    itemsParts.push(furnitureDesc);
+  }
+  if (booking.cardboardBoxesRequested > 0) {
+    itemsParts.push(`${booking.cardboardBoxesRequested} free box${booking.cardboardBoxesRequested !== 1 ? 'es' : ''}`);
+  }
+  if (booking.hasInsurance) {
+    itemsParts.push('Insurance: YES');
+  }
+  const itemsDescription = itemsParts.length > 0 ? itemsParts.join(' | ') : 'N/A';
+
   return {
     id: booking.id,
     name: booking.studentName,
@@ -21,6 +40,7 @@ function flattenBooking(booking: Booking) {
     free_box_delivery_date: booking.boxDeliveryDate || null,
     fall_delivery: booking.fallDeliveryDate || null,
     items: booking.boxCount,
+    items_description: itemsDescription,
     total_price: booking.totalPrice,
   };
 }
