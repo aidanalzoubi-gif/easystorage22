@@ -36,16 +36,6 @@ export const TIME_SLOTS = [
 
 export const PAYMENT_METHODS = [
   {
-    value: 'zelle',
-    label: 'Zelle',
-    description: 'Send to: ubstorage@email.com',
-  },
-  {
-    value: 'venmo',
-    label: 'Venmo',
-    description: '@UB-Storage',
-  },
-  {
     value: 'stripe',
     label: 'Card / Apple Pay',
     description: 'Pay securely online',

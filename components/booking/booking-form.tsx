@@ -49,7 +49,7 @@ const DEFAULT_VALUES: BookingFormData = {
   email: '',
   phone: '',
   ubPersonNumber: '',
-  paymentMethod: 'venmo',
+  paymentMethod: 'stripe',
   acceptedPrivacyPolicy: false,
   acceptedTermsOfService: false,
   acceptedProtectionPlan: false,
@@ -131,12 +131,28 @@ export function BookingForm() {
 
       addBooking(booking);
 
-      toast.success('Booking created successfully!');
-      router.push(`/confirmation?id=${booking.id}`);
+      // Redirect to Stripe Checkout for deposit payment
+      const resp = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          depositAmount,
+          bookingId: booking.id,
+          customerEmail: data.email,
+          customerName: data.studentName,
+        }),
+      });
+
+      const json = await resp.json();
+
+      if (!resp.ok || !json.url) {
+        throw new Error(json.error ?? 'Failed to create Stripe checkout session.');
+      }
+
+      window.location.href = json.url;
     } catch (error) {
       toast.error('Something went wrong. Please try again.');
       console.error(error);
-    } finally {
       setIsSubmitting(false);
     }
   };

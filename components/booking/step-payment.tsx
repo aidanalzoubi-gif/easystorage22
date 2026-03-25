@@ -154,47 +154,14 @@ export function StepPayment({ onSubmit, onBack, isSubmitting }: StepPaymentProps
       {/* Payment Instructions */}
       {paymentMethod && (
         <div className="rounded-xl border border-border bg-muted/30 p-6">
-          {paymentMethod === 'zelle' && (
-            <div>
-              <p className="text-muted-foreground">
-                Send your deposit of{' '}
-                <span className="font-semibold text-foreground">
-                  {formatPrice(depositAmount)}
-                </span>{' '}
-                via Zelle to:
-              </p>
-              <p className="mt-2 rounded-lg bg-background p-3 font-mono text-foreground">
-                ubstorage@email.com
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Include your name and booking ID in the memo.
-              </p>
-            </div>
-          )}
-          {paymentMethod === 'venmo' && (
-            <div>
-              <p className="text-muted-foreground">
-                Send your deposit of{' '}
-                <span className="font-semibold text-foreground">
-                  {formatPrice(depositAmount)}
-                </span>{' '}
-                via Venmo to:
-              </p>
-              <p className="mt-2 rounded-lg bg-background p-3 font-mono text-foreground">
-                @UB-Storage
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Include your name and booking ID in the note.
-              </p>
-            </div>
-          )}
           {paymentMethod === 'stripe' && (
             <p className="text-muted-foreground">
-              After submitting your booking, you&apos;ll be able to pay your deposit of{' '}
+              After confirming your booking, you&apos;ll be securely redirected to
+              complete your deposit of{' '}
               <span className="font-semibold text-foreground">
                 {formatPrice(depositAmount)}
               </span>{' '}
-              securely with your card.
+              via card or Apple Pay. Your balance is collected on pickup day.
             </p>
           )}
         </div>
