@@ -258,7 +258,7 @@ export default function HomePage() {
                   How does payment work?
                 </AccordionTrigger>
                 <AccordionContent>
-                  We require a $10 deposit to secure your booking. The remaining balance is due on pickup day. We accept Cash, Zelle, Venmo, and credit/debit cards.
+                  We require a $10 deposit to secure your booking. The remaining balance is due on pickup day.
                 </AccordionContent>
               </AccordionItem>
 
