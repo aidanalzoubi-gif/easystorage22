@@ -43,6 +43,15 @@ export function calculateBalance(
   return totalPrice - depositAmount;
 }
 
-export function formatPrice(price: number): string {
-  return `$${price.toFixed(2)}`;
+export function formatPrice(price: number | string | undefined | null): string {
+  const numericPrice =
+    typeof price === 'string'
+      ? Number(price)
+      : (price ?? 0);
+
+  if (!Number.isFinite(numericPrice)) {
+    return '$0.00';
+  }
+
+  return `$${numericPrice.toFixed(2)}`;
 }

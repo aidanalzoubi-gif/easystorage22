@@ -11,6 +11,40 @@ import { Footer } from '@/components/shared/footer';
 import { BookingCard } from '@/components/dashboard/booking-card';
 import type { Booking } from '@/lib/types';
 
+function mapDbBookingToBooking(dbBooking: any): Booking {
+  const totalPrice = Number(dbBooking?.total_price ?? 0);
+  const freeBoxes = Number(dbBooking?.free_boxes ?? 0);
+  const itemCount = Number(dbBooking?.items ?? 0);
+  const hasCoverage = String(dbBooking?.items_description ?? '').includes('Insurance: YES');
+
+  return {
+    id: dbBooking?.id ?? '',
+    status: 'booked',
+    createdAt: dbBooking?.created_at ?? new Date().toISOString(),
+    studentName: dbBooking?.name ?? 'Customer',
+    email: dbBooking?.email ?? '',
+    phone: dbBooking?.phone ?? '',
+    housingType: 'off-campus',
+    address: dbBooking?.pickup_location ?? '',
+    boxCount: itemCount,
+    furnitureItems: [],
+    cardboardBoxesRequested: freeBoxes,
+    boxDeliveryDate: dbBooking?.free_box_delivery_date ?? undefined,
+    pickupDate: dbBooking?.pickup_date ?? '',
+    pickupTimeSlot: '9am-12pm',
+    fallDeliveryHousingType: 'off-campus',
+    fallDeliveryAddress: dbBooking?.pickup_location ?? '',
+    fallDeliveryDate: dbBooking?.fall_delivery ?? undefined,
+    fallDeliveryScheduledLater: !dbBooking?.fall_delivery,
+    hasInsurance: hasCoverage,
+    insurancePhotosSent: false,
+    totalPrice,
+    depositAmount: 10,
+    depositPaid: true,
+    balancePaid: false,
+  };
+}
+
 export default function DashboardPage() {
   const [bookingId, setBookingId] = useState('');
   const [booking, setBooking] = useState<Booking | null>(null);
@@ -23,7 +57,7 @@ export default function DashboardPage() {
     setIsLoading(true);
     const res = await fetch(`/api/bookings/${bookingId.trim()}`);
     const json = await res.json();
-    setBooking(json.booking ?? null);
+    setBooking(json.booking ? mapDbBookingToBooking(json.booking) : null);
     setHasSearched(true);
     setIsLoading(false);
   };
