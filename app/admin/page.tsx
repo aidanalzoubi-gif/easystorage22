@@ -1,14 +1,28 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Package, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StatsCards } from '@/components/admin/stats-cards';
 import { BookingsTable } from '@/components/admin/bookings-table';
-import { useStore } from '@/lib/store';
+import type { Booking } from '@/lib/types';
 
 export default function AdminPage() {
-  const { bookings, isLoading } = useStore();
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchBookings = async () => {
+    setIsLoading(true);
+    const res = await fetch('/api/bookings');
+    const json = await res.json();
+    setBookings(json.bookings ?? []);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchBookings();
+  }, []);
 
   if (isLoading) {
     return (
@@ -43,7 +57,7 @@ export default function AdminPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => window.location.reload()}
+              onClick={fetchBookings}
             >
               <RefreshCw className="mr-2 h-4 w-4" />
               Refresh

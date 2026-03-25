@@ -9,22 +9,23 @@ import { Label } from '@/components/ui/label';
 import { Header } from '@/components/shared/header';
 import { Footer } from '@/components/shared/footer';
 import { BookingCard } from '@/components/dashboard/booking-card';
-import { useStore } from '@/lib/store';
 import type { Booking } from '@/lib/types';
 
 export default function DashboardPage() {
-  const { getBookingById, isLoading } = useStore();
   const [bookingId, setBookingId] = useState('');
   const [booking, setBooking] = useState<Booking | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (bookingId.trim()) {
-      const found = getBookingById(bookingId.trim());
-      setBooking(found ?? null);
-      setHasSearched(true);
-    }
+    if (!bookingId.trim()) return;
+    setIsLoading(true);
+    const res = await fetch(`/api/bookings/${bookingId.trim()}`);
+    const json = await res.json();
+    setBooking(json.booking ?? null);
+    setHasSearched(true);
+    setIsLoading(false);
   };
 
   return (
