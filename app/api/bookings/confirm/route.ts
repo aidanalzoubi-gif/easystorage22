@@ -77,11 +77,20 @@ export async function POST(request: Request) {
 
     const flattened = flattenBooking(booking as Booking);
 
+    console.log('[BOOKING CONFIRM] Saving booking to Supabase:', {
+      bookingId: booking.id,
+      studentName: booking.studentName,
+      email: booking.email,
+      totalPrice: booking.totalPrice,
+      timestamp: new Date().toISOString(),
+    });
+
     const { error } = await supabaseAdmin
       .from('bookings')
       .insert([flattened]);
 
     if (error) {
+      console.error('[BOOKING CONFIRM] Supabase insert error:', error);
       if ((error as { code?: string }).code === '23505') {
         return Response.json(
           { error: 'Duplicate booking ID. Please contact support.' },
@@ -91,6 +100,7 @@ export async function POST(request: Request) {
       return Response.json({ error: error.message }, { status: 500 });
     }
 
+    console.log('[BOOKING CONFIRM] ✅ Booking saved successfully:', booking.id);
     return Response.json({ success: true });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';

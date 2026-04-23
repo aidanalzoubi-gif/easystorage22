@@ -42,13 +42,31 @@ export function ConfirmationPageContent() {
 
   useEffect(() => {
     async function syncPaidBookingToSupabase(found: Booking) {
-      if (paymentStatus !== 'success' || !sessionId) return;
+      if (paymentStatus !== 'success' || !sessionId) {
+        console.log('[CONFIRMATION] Skipping Supabase sync:', {
+          paymentStatus,
+          hasSessionId: !!sessionId,
+        });
+        return;
+      }
 
-      await fetch('/api/bookings/confirm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ booking: found, sessionId }),
-      });
+      console.log('[CONFIRMATION] Starting Supabase sync for booking:', found.id);
+      try {
+        const response = await fetch('/api/bookings/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ booking: found, sessionId }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          console.log('[CONFIRMATION] ✅ Booking saved to Supabase:', found.id);
+        } else {
+          console.error('[CONFIRMATION] ❌ Error saving booking:', data.error);
+        }
+      } catch (error) {
+        console.error('[CONFIRMATION] Exception during Supabase sync:', error);
+      }
     }
 
     if (!isLoading && bookingId) {

@@ -15,7 +15,30 @@ function mapDbBookingToBooking(dbBooking: any): Booking {
   const totalPrice = Number(dbBooking?.total_price ?? 0);
   const freeBoxes = Number(dbBooking?.free_boxes ?? 0);
   const itemCount = Number(dbBooking?.items ?? 0);
-  const hasCoverage = String(dbBooking?.items_description ?? '').includes('Insurance: YES');
+  const itemsDesc = String(dbBooking?.items_description ?? '');
+  const hasCoverage = itemsDesc.includes('Insurance: YES');
+
+  // Parse items_description to extract furniture items
+  // Format: "5 boxes | 2x Chair, 1x Desk | free boxes | Insurance: YES"
+  const furnitureItems: { type: string; quantity: number; price: number }[] = [];
+  const parts = itemsDesc.split('|').map(p => p.trim());
+  
+  for (const part of parts) {
+    // Look for furniture items in format "2x Chair" or "1x Desk"
+    if (/^\d+x\s/.test(part)) {
+      const items = part.split(',').map(i => i.trim());
+      for (const item of items) {
+        const match = item.match(/^(\d+)x\s(.+)$/);
+        if (match) {
+          furnitureItems.push({
+            type: match[2],
+            quantity: parseInt(match[1], 10),
+            price: 0, // Price not stored in description
+          });
+        }
+      }
+    }
+  }
 
   return {
     id: dbBooking?.id ?? '',
@@ -27,7 +50,7 @@ function mapDbBookingToBooking(dbBooking: any): Booking {
     housingType: 'off-campus',
     address: dbBooking?.pickup_location ?? '',
     boxCount: itemCount,
-    furnitureItems: [],
+    furnitureItems,
     cardboardBoxesRequested: freeBoxes,
     boxDeliveryDate: dbBooking?.free_box_delivery_date ?? undefined,
     pickupDate: dbBooking?.pickup_date ?? '',

@@ -82,12 +82,30 @@ export function BookingCard({ booking }: BookingCardProps) {
             <Package className="mt-0.5 h-5 w-5 text-muted-foreground" />
             <div>
               <p className="text-sm text-muted-foreground">Storage</p>
-              <p className="font-medium text-foreground">
-                {booking.boxCount} {booking.boxCount === 1 ? 'box' : 'boxes'}
-              </p>
-              {booking.hasInsurance && (
-                <p className="text-sm text-accent">+ Insurance</p>
-              )}
+              <div className="space-y-1">
+                {booking.boxCount > 0 && (
+                  <p className="font-medium text-foreground">
+                    {booking.boxCount} {booking.boxCount === 1 ? 'box' : 'boxes'}
+                  </p>
+                )}
+                {booking.furnitureItems && booking.furnitureItems.length > 0 && (
+                  <div>
+                    {booking.furnitureItems.map((item, idx) => (
+                      <p key={idx} className="text-sm text-foreground">
+                        {item.quantity}x {item.type}
+                      </p>
+                    ))}
+                  </div>
+                )}
+                {booking.cardboardBoxesRequested > 0 && (
+                  <p className="text-sm text-foreground">
+                    + {booking.cardboardBoxesRequested} free {booking.cardboardBoxesRequested === 1 ? 'box' : 'boxes'}
+                  </p>
+                )}
+                {booking.hasInsurance && (
+                  <p className="text-sm text-accent">+ Coverage</p>
+                )}
+              </div>
             </div>
           </div>
           <div className="flex items-start gap-3">
